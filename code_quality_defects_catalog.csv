@@ -1,0 +1,256 @@
+defect name,description,code example,code fix example,prog. construct,defect type,tool support,"lang.
+indep.",severity,prevalence,total importance,linter codes
+duplicate block,Two very similar blocks of code.,"if c:
+    f(1)
+    g(1)
+    f(1)
+else:
+    f(2)
+    g(2)
+    f(2)","def fun(n):
+    f(n)
+    g(n)
+    f(n)
+
+if c:
+    fun(1)
+else:
+    fun(2)",function,duplicate code,1,1,5,3,9,R6505
+redundant if-else,If-else statement with both branches being return True/False.,"if c:
+    return True
+else:
+    return False",return c,condition,simplifiable,3,1,5,3,9,R6201
+inappropriate whitespace: tabs and spaces,Mixing tabs and spaces,,,multiple,poor formatting,3,1,5,3,9,"E101,E223,E224,E273,E274"
+using non-English identifiers,The code uses function or variable names that are not in English.,promenna = 28,variable = 28,variable,poor name,1,1,5,2,8,
+using global variables,The code unnecessarily uses global variables.,,,variable,poor design,2,1,5,2,8,R6401
+unreachable code,Part of source code that is never executed.,"return x
+print(x)",return x,multiple,unused,3,1,5,2,8,W0101
+easy-to-confuse variable name,"The code contains a variable named I, l or O.",,,variable,poor name,3,1,5,2,8,"E741, E743, E743"
+non-ASCII characters in identifier,An identifier contains non-ASCII characters.,"proměnná = 28
+переменная = 42
+some_變量 = ''",promenna = 28,variable,poor name,3,1,5,2,8,C0144
+one-letter name,"One-letter variable name (with several exceptions like i, j, and n).",l = 4,length = 4,variable,poor name,1,1,4,3,8,
+duplicate expression,Repeated occurences of the same (complex) expression.,"if numbers[n//2] % 2 >= 0:
+   print(numbers[n//2] % 2)","val = numbers[n//2] % 2
+if val >= 0:
+   print(val)",variable,duplicate code,1,1,4,3,8,R6504
+built-in name,Variable name that is name of a built-in function.,"list = [3, 4]","nums = [3, 4]",variable,poor name,3,1,4,3,8,W0622
+duplicate sequence,Sequence of commands (or blocks of commands) that are same or differ in a single value.,"print(1)
+print(2)
+print(3)
+print(4)","for i in range(4):
+    print(i + 1)",loop,duplicate code,1,1,5,1,7,R6506
+block with no effect,An if statement or loop has no effect.,"for number in [1, 2, 3]:
+    break",remove the code,multiple,unused,2,1,5,1,7,WPS328
+statement with no effect,The code contains a statement that has no effect on the execution.,val == val (as a statement),remove the code,expression,unused,3,1,5,1,7,W0104
+for with redundant indexing,"Iterating through indicies, accessing (not modifying) items at the current index only.","for i in range(len(text)):
+    print(text[i])","for letter in text:
+    print(letter)",loop,unsuited construct,3,0,4,3,7,R6101
+inappropriate whitespace: visible,"Violating PEP 8 conventions about whitespace (only the unanimously accepted rules), ""visible"" formatting (indentation, spaces around operators/keywords, use of empty lines)...","x= 3 *y
+print( x, y )","x = 3*y
+print(x, y)
+",multiple,poor formatting,3,0,4,3,7,"E305,E302,E303,E231,E225,E211,E228,E251,E203,E202,E201,E301,E227,E306,E252,E275,E117,E128,E116,E114,E127,E113,E122,E112,E125,E115,E131,E129"
+identifier breaks naming conventions,The code contains an identifier that does not follow naming conventions.,"localVariable, global_variable, CLASS_NAME","local_variable, GLOBAL_VARIABLE, ClassName",variable,poor name,3,0,4,3,7,C0103
+unused function,Function that is defined but never called.,"def f():
+    print(4)
+
+print(4)",print(4),function,unused,1,1,4,2,7,
+misleading name,"Variable name i or j used when traversing items, not indices.","for i in text:
+    print(i)","for letter in text:
+    print(letter)",loop,poor name,1,1,4,2,7,
+duplicate if,Consecutive if statements with the same body. ,"if c1:
+    print(x)
+elif c2:
+    print(x)","if c1 or c2:
+    print(x)",condition,duplicate code,1,1,4,2,7,R6503
+while as for,While loop with the number of iterations known before its start.,"i = 0
+while i <= n:
+    print(i)
+    i += 1","for i in range(n):
+    print(i)",loop,unsuited construct,1,1,4,2,7,R6305
+reimplementing a library,"The code implements functionality available in a (standard) library, when implementing it is not a part of the assignment.",e.g. implementing a sorting algorithm,use implementation from the standard library,module,poor design,1,1,4,2,7,
+duplicate block in if,"There are duplicate blocks inside if/elif/else, where the condition can be evaluated inside the block to avoid duplication.","if line % 2 == 0:
+    for i in range(width // 2):
+        print(""# "")
+else:
+    for i in range(width // 2):
+        print("" #"")","for i in range(width // 2):
+    print(""# "" if line % 2 == 0 else "" #"")",condition,duplicate code,1,1,4,2,7,
+no early return,The code contains a condition that executes long piece of code in the positive branch and a short one in the negative one.,"if cond:
+    # long code
+else:
+    return 0","if not cond:
+    return 0
+# long code",condition,poor design,2,1,4,2,7,R6703
+all if branches start/end with identical code,"All if/elif/else branches start or end with the same code, which can be moved before or after the block.","if cond:
+    print(""foo"")
+    i += 1
+else:
+    print(""bar"")
+    i += 1","if cond:
+   print(""foo"")
+else:
+   print(""bar"")
+i += 1",condition,duplicate code,2,1,4,2,7,R6502
+nested if,"Nested if-statements avoidable using conjunction (e.g., when the last branch is single if).","if c1:
+    if c2:
+        # body","if c1 and c2:
+   # body",condition,simplifiable,2,1,4,2,7,R6207
+redundant comparison,Comparing boolean expression to a boolean constant.,"expr == True
+expr is True","expr
+",expression,simplifiable,3,1,4,2,7,"E712, R6613"
+unused variable,Variable that is defined but never read.,"y = 4
+print(4)",print(4),variable,unused,3,1,4,2,7,F841
+unused parameter,Function parameter is never used in the body.,"def f(x, y):
+    print(x)","def f(x):
+    print(x)
+
+def f(x, y):
+    print(x, y)",function,unused,3,1,4,2,7,W0613
+long function,Function with more than 20 statements.,"def f():
+    ... # > 20 statements",decompose the function,function,poor design,3,1,4,2,7,R6702
+unnecessary else/elif,Redundant use of else after command when the positive branch uses return/break/continue.,"if c:
+    return val1
+else:
+    return val2","if c:
+    return val1
+return val2",condition,simplifiable,3,1,4,2,7,"R1705, R1723"
+long line,Line with more than 100 characters.,income = (gross_wages + taxable_interest + (dividends - qualified_dividends) - ira_deduction - student_loan_interest),"income = (gross_wages
+          + taxable_interest
+          + (dividends - qualified_dividends)
+          - ira_deduction
+          - student_loan_interest)",multiple,poor formatting,3,1,3,3,7,C0301
+augmentable assignment,Variable update expressible as augmented assignment.,x = x + 4,x += 4,expression,simplifiable,3,1,3,3,7,R6609
+unused import,Module is imported but unused.,"import math
+print(max(3, 4))","print(max(3, 4))",module,unused,3,1,3,3,7,F401
+changing the control variable of a for loop,Changing a control variable of a for loop at the end of an iteration has no effect.,"for i in range(n):
+    # body
+    i += 1","for i in range(n):
+    # body",loop,unused,1,0,5,1,6,R6304
+magical constant instead of character's ordinal value,The code uses a magical numeric constant instead of using ord with a character.,ord(char) < 65,ord(char) < ord('A') / char < 'A',expression,unsuited construct,1,1,4,1,6,"R6614, R6615"
+long script,Program with more than 20 statements on the level of the main program (outside functions).,"# top-level code
+... # > 20 statements",move parts of the script to a funciton,function,poor design,2,1,4,1,6,R6701
+redundant elif,If clause with a condition that is always true.,"if x < y:
+    print(1)
+elif x >= y:
+    print(2)","if x < y:
+    print(1)
+else:
+    print(2)",condition,simplifiable,2,1,4,1,6,R6611
+redundant for,For loop with zero or single iteration.,"for i in range(1):
+    # body",# body,loop,simplifiable,2,1,4,1,6,R6606
+unnecessary operator,The code uses unnecessary plus or double negation.,"profit = +3.33
+profit = ---3.33
+number = ~~42
+bar = not not foo","profit = 3.33
+prift = -3.33
+number = 42
+bar = foo",expression,simplifiable,2,1,4,1,6,WPS330
+redundant arithmetic,Identity operation or constant-valued expression.,"1*x, x/x","x, 1.0",expression,simplifiable,2,1,4,1,6,R6608
+empty if,Redundant branch containing just pass.,"if c:
+    pass
+else:
+    # body","if not c:
+    # body",condition,unused,2,1,4,1,6,R6205
+unnecessary parenthesis,"Used when a single item in parentheses follows an if, for, or another keyword.",return(value),return value,expression,poor formatting,2,0,3,3,6,C0325
+multiple statements on one line,The code contains more than one statement on a single line.,"if ""apple"" in fruits: print(""it's there"")","if ""apple"" in fruits:
+    print(""it's there"")",multiple,poor formatting,3,0,3,3,6,"E702, E704, E701"
+trivial comment,The code contains trivial comment directly corresponding to the statement.,x += 1  # increase value by 1,x += 1,multiple,poor documentation,1,1,3,2,6,
+redundant variable/attribute,"The code contains two variables/attributes, where one can be cheaply computed from the other.","depth = 0
+prefix = """"
+# code using depth and prefix
+depth += 1
+prefix += ""    ""","depth = 0
+# code using depth and
+# "" "" * 4 * depth
+# instead of prefix
+depth += 1",variable,poor design,1,1,3,2,6,
+using known value as variable,The code uses an expression which was already tested for a specific value.,"if len(lst1) == 0:
+    print(lst2[len(lst1)])","if len(lst1) == 0:
+    print(lst2[0])",expression,simplifiable,1,1,3,2,6,
+inconsistent names,Functions with similar purpose have names using different naming schemes.,"validate_pair
+tuple_validation","validate_pair
+validate_tuple",function,poor name,1,1,3,2,6,
+redundant condition (followed by loop),"There is a condition in the code that can be removed, because a following loop would perform no iteration and return the same result.","if len(lst) == 0:
+    return 0
+
+sum = 0
+for i in range(len(lst)):
+    # body
+return sum","sum = 0
+for i in range(len(lst)):
+    # body
+return sum",loop,simplifiable,1,1,3,2,6,
+list for membership testing,"The code frequently tests for membership in a list, which could just as well be a set.","while cond:
+    ...
+    if value in num_list: ...","while cond:
+   ...
+   if value in num_set: ...",compound data structure,unsuited construct,1,1,3,2,6,
+else if,Else clause containing just single if-else block.,"else:
+    if c:
+        print(x)","elif c:
+    print(x)",condition,simplifiable,2,1,3,2,6,R6605
+repeated arithmetic operation,Repeated use of the same arithmetic operation over the same expression. ,"y = x+x+x
+z = x*x*x","y = 3 * x
+z = x ** 3",expression,simplifiable,2,1,3,2,6,R6607
+local variable used only to return,The code uses a local variable that is only used in a return statement.,"def some_function():
+    some_value = 1
+    return some_value","def some_function():
+    return 1",function,simplifiable,2,1,3,2,6,WPS331
+commented out code,The code contains commented out parts of code.,,,multiple,unused,2,1,2,3,6,E800
+missing docstring,"A function, class, or method is missing a docstring.",,add the docstring,multiple,poor documentation,3,1,2,3,6,"C0116,C0115"
+missing type annotation in annotated code,A function or attribute misses a type annotation in code that uses them.,,add the annotation,multiple,poor documentation,1,0,4,1,5,
+calling dunder method,The code explicity call double-underscore method.,x.__gt__(2),x > 2,expression,unsuited construct,2,0,4,1,5,C2801
+explicit file open and close,"The code uses explicit open and close to manipulate a file, instead of using 'with'.","f = open(""path.txt"")
+# work with the file
+f.close()","with open(""path.txt"") as f:
+    # work with the file",expression,unsuited construct,2,0,3,2,5,R1732
+mergeable equal,Comparing the same expression to multiple values.,c == 'a' or c == 'A',"c in ('a', 'A') / c in ""aA""",expression,unsuited construct,2,0,3,2,5,R1714
+inconsistent returns,The code sometimes returns a value explicitly and sometimes returns implicit None.,"if cond:
+    return True
+return","if cond:
+    return True
+return None",function,unsuited construct,3,0,3,2,5,R1710
+unnecessary pass,Pass in function body.,"def fun():
+    pass
+    # body","def fun():
+    # body",function,unused,3,0,3,2,5,W0107
+redundant not,Boolean expression with negation that can be simply applied.,not a <= b,a > b,expression,simplifiable,2,1,3,1,5,C0113
+too many arguments,The function has too many arguments.,"def move(board, x, y, dir_x, dir_y, color):
+   # body","def move(board, position, direction, color):
+    # body",function,poor design,3,1,3,1,5,R0913
+zero-length compare,Emptiness of a container is tested by comparing its size to zero instead of the pythonic way of converting the container itself to bool.,if len(lst) == 0:,if not lst:,condition,unsuited construct,3,0,2,3,5,C1803
+unused control variable,The control variable of a loop is unused in its body.,"for i in range(n):
+    print(""Hello"")","for _ in range(n):
+    print(""Hello"")",loop,poor name,3,0,2,3,5,
+inappropriate whitespace: trailing,"Violating PEP 8 conventions about whitespace, trailing spaces / lines, inconsitent line endings ...",,,multiple,poor formatting,3,0,2,3,5,"W291,W292,W391,W293"
+negated condition with else clause,"The code contains an if statement with an else branch, whose condition is negated.","if not cond:
+     # body 1
+else:
+     # body 2","if cond:
+    # body 2
+else:
+    # body 1",condition,simplifiable,2,1,2,2,5,WPS504
+argument does not come first in comparison,A code uses a comparison where a constant comes first and a variable only second.,if 3 < some_x:,if some_x > 3:,expression,poor formatting,2,1,2,2,5,WPS309
+using float division,Using float division and immediately converting the result to int.,int(x / y),x // y,expression,unsuited construct,2,0,3,1,4,R6602
+identity comprehension,The comprehension does not change the structure and there are better ways to copy a structure.,[number for number in lst],lst.copy(),compound data structure,unsuited construct,2,0,3,1,4,R1721
+explicit type comparison,The code compares types instead of using isinstance.,type(val) == int,"isinstance(val, int)",expression,unsuited construct,2,0,3,1,4,C0123
+using len(container) without compare,Emptiness of a container is tested by getting its length and implicitly converting it to bool.,"if len(lst):
+    # body","if len(lst) == 0: / if not lst:
+    # body",condition,unsuited construct,3,0,3,1,4,C1802
+import outside toplevel,Importing other modules from other place then the top level.,"def fun():
+    import module","import module
+
+def fun():
+    # body
+",module,unsuited construct,3,0,3,1,4,C0415
+unsuited list extension,The code extends list by a single argument instead of appending it.,lst += [val] or lst.extend([val]),lst.append(val),compound data structure,unsuited construct,1,0,2,2,4,R6601
+not using f-strings,"using %, +, join or format",,,expression,unsuited construct,2,0,2,2,4,C0209
+redundant component in slice,The code explicitly states implicit bounds on list slices.,x[0:7:1],x[:7:1],compound data structure,simplifiable,2,0,2,2,4,WPS349
+equality with None,"Comparisons to singletons like None should always be done with is, not using the equality operators.",val == None,val is None,expression,unsuited construct,3,0,2,2,4,E711
+absolute value,Compound condition equivalent to a single condition with absolute value.,x < 4 and x > -4,abs(x) < 4,expression,unsuited construct,1,1,2,1,4,
+if statement instead of min/max,"The code uses an if statement to determine a maximum/minimum of two values, instead of function max/min.","if longest < current:
+    longest = current","longest = max(longest, current)",condition,unsuited construct,2,1,2,1,4,"R1731, R1730"
+for with redundant dictionary indexing,"Iterating through dictionary keys, accessing (not modifying) items at the current key only.","for key in dictionary:
+    print(key, dictionary[key])","for key, val in dictionary.items():
+    print(key, val)",compound data structure,unsuited construct,2,0,2,1,3,C0201
