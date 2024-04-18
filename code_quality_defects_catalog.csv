@@ -81,7 +81,7 @@ no early return,The code contains a condition that executes long piece of code i
 else:
     return 0","if not cond:
     return 0
-# long code",condition,poor design,2,1,4,2,7,R6703
+# long code",condition,poor design,2,1,4,2,7,R6616
 all if branches start/end with identical code,"All if/elif/else branches start or end with the same code, which can be moved before or after the block.","if cond:
     print(""foo"")
     i += 1
