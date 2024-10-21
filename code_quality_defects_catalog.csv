@@ -1,5 +1,5 @@
 defect name,description,code example,code fix example,prog. construct,defect type,tool support,"lang.
-indep.",severity,prevalence,total importance,linter codes
+indep.",severity,prevalence,total importance,EduLint codes
 duplicate block,Two very similar blocks of code.,"if c:
     f(1)
     g(1)
@@ -15,7 +15,7 @@ else:
 if c:
     fun(1)
 else:
-    fun(2)",function,duplicate code,1,1,5,3,9,R6505
+    fun(2)",function,duplicate code,1,1,5,3,9,R6598
 redundant if-else,If-else statement with both branches being return True/False.,"if c:
     return True
 else:
@@ -26,20 +26,20 @@ using global variables,The code unnecessarily uses global variables.,,,variable,
 unreachable code,Part of source code that is never executed.,"return x
 print(x)",return x,multiple,unused,3,1,5,2,8,W0101
 easy-to-confuse variable name,"The code contains a variable named I, l or O.",,,variable,poor name,3,1,5,2,8,"E741, E743, E743"
-non-ASCII characters in identifier,An identifier contains non-ASCII characters.,"proměnná = 28
+non-ASCII characters in identifier,ea,"proměnná = 28
 переменная = 42
 some_變量 = ''",promenna = 28,variable,poor name,3,1,5,2,8,C0144
 one-letter name,"One-letter variable name (with several exceptions like i, j, and n).",l = 4,length = 4,variable,poor name,1,1,4,3,8,
 duplicate expression,Repeated occurences of the same (complex) expression.,"if numbers[n//2] % 2 >= 0:
    print(numbers[n//2] % 2)","val = numbers[n//2] % 2
 if val >= 0:
-   print(val)",variable,duplicate code,1,1,4,3,8,R6504
+   print(val)",variable,duplicate code,1,1,4,3,8,R6597
 built-in name,Variable name that is name of a built-in function.,"list = [3, 4]","nums = [3, 4]",variable,poor name,3,1,4,3,8,W0622
 duplicate sequence,Sequence of commands (or blocks of commands) that are same or differ in a single value.,"print(1)
 print(2)
 print(3)
 print(4)","for i in range(4):
-    print(i + 1)",loop,duplicate code,1,1,5,1,7,R6506
+    print(i + 1)",loop,duplicate code,1,1,5,1,7,R6599
 block with no effect,An if statement or loop has no effect.,"for number in [1, 2, 3]:
     break",remove the code,multiple,unused,2,1,5,1,7,WPS328
 statement with no effect,The code contains a statement that has no effect on the execution.,val == val (as a statement),remove the code,expression,unused,3,1,5,1,7,W0104
@@ -62,7 +62,7 @@ duplicate if,Consecutive if statements with the same body. ,"if c1:
     print(x)
 elif c2:
     print(x)","if c1 or c2:
-    print(x)",condition,duplicate code,1,1,4,2,7,R6503
+    print(x)",condition,duplicate code,1,1,4,2,7,R6596
 while as for,While loop with the number of iterations known before its start.,"i = 0
 while i <= n:
     print(i)
@@ -91,7 +91,7 @@ else:
    print(""foo"")
 else:
    print(""bar"")
-i += 1",condition,duplicate code,2,1,4,2,7,R6502
+i += 1",condition,duplicate code,2,1,4,2,7,R6595
 nested if,"Nested if-statements avoidable using conjunction (e.g., when the last branch is single if).","if c1:
     if c2:
         # body","if c1 and c2:
